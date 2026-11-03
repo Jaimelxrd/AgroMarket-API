@@ -217,6 +217,7 @@ São aceites ficheiros JPEG, PNG e WebP, validados pelo tipo e pela assinatura d
 
 - [Rotas e permissões para o frontend](../rotas.md)
 - [Lista de endpoints por módulo](ENDPOINTS.md)
+- [Diagramas visíveis no GitHub (Mermaid)](DIAGRAMAS.md)
 - [Diagrama de classes (PlantUML)](diagrama-classes.puml)
 - [Diagrama de casos de uso (PlantUML)](diagrama-casos-de-uso.puml)
 - [README e arranque rápido](../README.md)
