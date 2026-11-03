@@ -1,0 +1,81 @@
+@startuml AgroMarketUseCases
+title AgroMarket - Diagrama de Casos de Uso
+left to right direction
+skinparam packageStyle rectangle
+
+actor Visitante
+actor "Utilizador autenticado" as User
+actor Comprador
+actor Produtor
+actor Administrador as Admin
+
+User <|-- Comprador
+User <|-- Produtor
+User <|-- Admin
+
+rectangle "Sistema AgroMarket" {
+  usecase "Consultar categorias" as UC_Categories
+  usecase "Pesquisar produtos" as UC_Search
+  usecase "Consultar produto e fotografias públicas" as UC_ViewProduct
+  usecase "Registar conta" as UC_Register
+  usecase "Iniciar sessão" as UC_Login
+  usecase "Gerir dados pessoais" as UC_Profile
+  usecase "Alterar palavra-passe" as UC_Password
+  usecase "Desativar própria conta" as UC_Deactivate
+  usecase "Consultar dashboard de comprador" as UC_BuyerDashboard
+  usecase "Criar pedido de compra" as UC_CreateOrder
+  usecase "Consultar e acompanhar pedidos próprios" as UC_TrackOrders
+  usecase "Cancelar pedido pendente" as UC_CancelOrder
+  usecase "Consultar dashboard de produtor" as UC_ProducerDashboard
+  usecase "Gerir perfil de produtor" as UC_ProducerProfile
+  usecase "Gerir produtos e fotografias próprias" as UC_ManageProducts
+  usecase "Consultar pedidos recebidos" as UC_ReceivedOrders
+  usecase "Aceitar ou rejeitar pedido" as UC_RespondOrder
+  usecase "Concluir pedido aceite" as UC_CompleteOrder
+  usecase "Enviar mensagens" as UC_SendMessage
+  usecase "Consultar conversas" as UC_ViewMessages
+  usecase "Marcar mensagem como lida" as UC_ReadMessage
+  usecase "Consultar dashboard administrativo" as UC_AdminDashboard
+  usecase "Gerir categorias" as UC_ManageCategories
+  usecase "Moderar produtos" as UC_ModerateProducts
+  usecase "Gerir contas de utilizadores" as UC_ManageUsers
+  usecase "Consultar pedidos da plataforma" as UC_AdminOrders
+}
+
+Visitante --> UC_Categories
+Visitante --> UC_Search
+Visitante --> UC_ViewProduct
+Visitante --> UC_Register
+Visitante --> UC_Login
+
+User --> UC_Profile
+User --> UC_Password
+User --> UC_Deactivate
+User --> UC_SendMessage
+User --> UC_ViewMessages
+User --> UC_ReadMessage
+
+Comprador --> UC_BuyerDashboard
+Comprador --> UC_CreateOrder
+Comprador --> UC_TrackOrders
+Comprador --> UC_CancelOrder
+
+Produtor --> UC_ProducerDashboard
+Produtor --> UC_ProducerProfile
+Produtor --> UC_ManageProducts
+Produtor --> UC_ReceivedOrders
+Produtor --> UC_RespondOrder
+Produtor --> UC_CompleteOrder
+
+Admin --> UC_AdminDashboard
+Admin --> UC_ManageCategories
+Admin --> UC_ModerateProducts
+Admin --> UC_ManageUsers
+Admin --> UC_AdminOrders
+
+note bottom of User
+  As operações de escrita e os dados privados
+  dependem do papel e da propriedade do recurso.
+  As chamadas protegidas enviam um token JWT.
+end note
+@enduml

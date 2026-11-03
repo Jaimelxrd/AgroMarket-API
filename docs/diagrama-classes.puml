@@ -1,0 +1,128 @@
+@startuml AgroMarketClasses
+title AgroMarket - Diagrama de Classes do Domínio
+hide methods
+skinparam classAttributeIconSize 0
+
+class Utilizador {
+  +id: Long
+  +nomeCompleto: String
+  +email: String
+  +numeroTelefone: String
+  +palavraPasseHash: String
+  +tipo: TipoUtilizador
+  +estado: EstadoConta
+  +dataRegisto: LocalDateTime
+}
+
+class PerfilProdutor {
+  +id: Long
+  +nomeExploracao: String
+  +descricao: String
+  +provincia: String
+  +distrito: String
+  +localidade: String
+  +endereco: String
+  +tipoProducao: String
+  +contactoAlternativo: String
+}
+
+class Categoria {
+  +id: Long
+  +nome: String
+  +descricao: String
+  +estado: EstadoCategoria
+}
+
+class Produto {
+  +id: Long
+  +nome: String
+  +descricao: String
+  +precoUnidade: BigDecimal
+  +unidadeMedida: UnidadeMedida
+  +quantidadeDisponivel: BigDecimal
+  +provincia: String
+  +distrito: String
+  +localidade: String
+  +estado: EstadoProduto
+  +dataPublicacao: LocalDateTime
+  +versao: Long
+}
+
+class FotografiaProduto {
+  +id: Long
+  +caminhoFicheiro: String
+  +ordem: Integer
+}
+
+class PedidoCompra {
+  +id: Long
+  +quantidadeSolicitada: BigDecimal
+  +precoUnitarioAcordado: BigDecimal
+  +valorTotal: BigDecimal
+  +mensagem: String
+  +estado: EstadoPedido
+  +dataCriacao: LocalDateTime
+  +dataAtualizacao: LocalDateTime
+}
+
+class Mensagem {
+  +id: Long
+  +conteudo: String
+  +dataEnvio: LocalDateTime
+  +lida: boolean
+}
+
+enum TipoUtilizador {
+  ADMIN
+  PRODUTOR
+  COMPRADOR
+}
+enum EstadoConta {
+  ATIVA
+  INATIVA
+}
+enum EstadoCategoria {
+  ATIVA
+  INATIVA
+}
+enum EstadoProduto {
+  DISPONIVEL
+  INDISPONIVEL
+  ESGOTADO
+  PENDENTE
+  REJEITADO
+}
+enum UnidadeMedida {
+  KG
+  TONELADA
+  UNIDADE
+  SACO
+  CAIXA
+  LITRO
+}
+enum EstadoPedido {
+  PENDENTE
+  ACEITE
+  REJEITADO
+  CANCELADO
+  CONCLUIDO
+}
+
+Utilizador "1" -- "0..1" PerfilProdutor : perfil
+Utilizador "1 (produtor)" -- "0..*" Produto : publica
+Categoria "1" -- "0..*" Produto : classifica
+Produto "1" -- "0..*" FotografiaProduto : fotografias
+Produto "1" -- "0..*" PedidoCompra : solicitado em
+Utilizador "1 (comprador)" -- "0..*" PedidoCompra : cria
+Utilizador "1 (produtor)" -- "0..*" PedidoCompra : recebe
+Utilizador "1 (remetente)" -- "0..*" Mensagem : envia
+Utilizador "1 (destinatario)" -- "0..*" Mensagem : recebe
+
+Utilizador ..> TipoUtilizador
+Utilizador ..> EstadoConta
+PerfilProdutor ..> Utilizador
+Categoria ..> EstadoCategoria
+Produto ..> EstadoProduto
+Produto ..> UnidadeMedida
+PedidoCompra ..> EstadoPedido
+@enduml
